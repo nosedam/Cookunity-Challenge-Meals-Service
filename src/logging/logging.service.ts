@@ -9,13 +9,13 @@ export class LoggingService {
     constructor(private requestService: RequestService) {}
 
     public log(obj: Record<string, any>) {
-
-        obj["traceId"] = this.requestService.getTraceId()
-        if (!obj.level) {
-            obj["level"] = "info"
+        let objToLog = {...obj}
+        objToLog["traceId"] = this.requestService.getTraceId()
+        if (!objToLog.level) {
+            objToLog["level"] = "info"
         }
 
-        this.logger.log(JSON.stringify(obj))
+        this.logger.log(JSON.stringify(objToLog))
     }
 
     public info(message: string) {

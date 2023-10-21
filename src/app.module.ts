@@ -8,24 +8,38 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging/logging.interceptor';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RequestService } from './request/request.service';
 import { MealsModule } from './meals/meals.module';
+import { ChefsModule } from './chefs/chefs.module';
+import { CustomersModule } from './customers/customers.module';
+import { RolesGuard } from './roles/roles.guard';
+import { Chef } from './chefs/entities/chef.entity';
+import { Meal } from './meals/entities/meal.entity';
+import { Customer } from './customers/entities/customer.entity';
 
 @Module({
   imports: [
     AuthModule, 
     UsersModule,
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'cookunity.db',
-      entities: [User],
+      type: 'mysql',
+      host: 'cookunity.cwg8rwzr8wkt.us-west-2.rds.amazonaws.com',
+      port: 3306,
+      username: 'admin',
+      password: 'ZeQjwa1SHSltF783Ev4X',
+      database: 'meals',
+      entities: [User, Chef, Meal, Customer],
       synchronize: true,
     }
   ),
-    MealsModule, 
+    MealsModule,
+    ChefsModule,
+    CustomersModule,
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController
+  ],
   providers: [
     AppService, 
     LoggingService, 
@@ -38,6 +52,10 @@ import { MealsModule } from './meals/meals.module';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })

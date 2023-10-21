@@ -1,6 +1,6 @@
 import { Body, Controller, HttpException, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LocalGuard } from './local-auth.guard';
+import { LocalGuard } from './guards/local-auth.guard';
 import { Request } from 'express';
 import { Public } from './public.decorator';
 import { RegisterDto } from './dto/register.dto';
@@ -17,9 +17,4 @@ export class AuthController {
       return this.authService.generateJWT(user)
   }
 
-  @Public()
-  @Post("register")
-  register(@Body() registerDto: RegisterDto) {
-    return this.authService.registerUser(registerDto)
-  }
 }

@@ -6,7 +6,8 @@ import { CreateUserDto } from "src/users/dto/create-user.dto"
 
 export class RegisterDto extends PartialType(CreateUserDto) {
 
-    @ValidateIf(registerDto => registerDto.password == registerDto.passwordConfirmation)
+    @IsString()
+    @Exclude()
     passwordConfirmation: string
 
 }

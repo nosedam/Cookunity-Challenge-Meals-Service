@@ -1,18 +1,28 @@
 import { Exclude, Expose } from "class-transformer";
 import { Role } from "src/roles/role.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import * as bcrypt from 'bcrypt';
 
 @Entity()
+@TableInheritance({ column: { name: "role" } })
 export class User {
 
+    @BeforeInsert()
+    async hashPassword() {
+        if (this.password) {
+            const salt = await bcrypt.genSalt();
+            this.password = await bcrypt.hash(this.password, salt);
+        }
+    }
+  
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({unique: true})
     email: string
 
-    @Exclude()
     @Column()
+    @Exclude()
     password: string
 
     @Column()
@@ -23,10 +33,5 @@ export class User {
 
     @Column()
     role: string
-
-    @Expose()
-    get fullName(): string {
-        return `${this.firstName} ${this.lastName}`;
-    }
 
 }
