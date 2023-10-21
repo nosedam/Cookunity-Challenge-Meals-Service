@@ -17,25 +17,24 @@ import { RolesGuard } from './roles/roles.guard';
 import { Chef } from './chefs/entities/chef.entity';
 import { Meal } from './meals/entities/meal.entity';
 import { Customer } from './customers/entities/customer.entity';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmConfigService } from './typeorm.config';
 
 @Module({
   imports: [
     AuthModule, 
     UsersModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'cookunity.cwg8rwzr8wkt.us-west-2.rds.amazonaws.com',
-      port: 3306,
-      username: 'admin',
-      password: 'ZeQjwa1SHSltF783Ev4X',
-      database: 'meals',
-      entities: [User, Chef, Meal, Customer],
-      synchronize: true,
-    }
-  ),
+    TypeOrmModule.forRootAsync({
+        imports: [ConfigModule],
+        useClass: TypeOrmConfigService
+      }
+    ),
     MealsModule,
     ChefsModule,
     CustomersModule,
+    ConfigModule.forRoot({
+      envFilePath: [".env.local", ".env.dev", ".env"]
+    })
   ],
   controllers: [
     AppController

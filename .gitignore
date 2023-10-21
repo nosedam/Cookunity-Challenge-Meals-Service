@@ -17,6 +17,9 @@ lerna-debug.log*
 # DB
 *.db
 
+# Env
+.env*
+
 # Tests
 /coverage
 /.nyc_output
