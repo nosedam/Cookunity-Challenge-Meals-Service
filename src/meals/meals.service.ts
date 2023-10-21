@@ -19,18 +19,16 @@ export class MealsService {
   }
 
   findAll(findMealsDto: FindMealsDto, paginationDto: PaginationDto) {
-    return this.mealsRepository.find({
-      take: paginationDto.limit,
-      skip: paginationDto.page,
-      where: {}
-    });
+    let meals = this.mealsRepository.createQueryBuilder("meals")
+
+
+    if (findMealsDto.chef) {
+      meals = meals.where("meals.chefId = :chefId", {chefId: findMealsDto.chef.id})
+    }
+
+    meals = meals.take(paginationDto.page).limit(paginationDto.limit)
+
+    return meals.getMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} meal`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} meal`;
-  }
 }

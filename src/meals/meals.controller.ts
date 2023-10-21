@@ -11,6 +11,7 @@ import { Chef } from 'src/chefs/entities/chef.entity';
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
+  @Roles(Role.Chef)
   @Post()
   create(@Body() createMealDto: CreateMealDto, @Req() req) {
     const chef = req.user.id as Chef
@@ -22,11 +23,6 @@ export class MealsController {
   @Get()
   findAll(@Query() filters: FindMealsDto, @Query() pagination: PaginationDto) {
     return this.mealsService.findAll(filters, pagination);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mealsService.findOne(+id);
   }
 
 }

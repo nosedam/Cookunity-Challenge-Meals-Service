@@ -19,7 +19,7 @@ export class ChefsController {
   @Get('meals')
   findMeals(@Query() pagination: PaginationDto, @Req() req) {
     const user = req.user as Chef
-    const findMealsDto = new FindMealsDto(user.id)
+    const findMealsDto = new FindMealsDto(user)
     return this.chefsService.findMeals(findMealsDto, pagination);
   }
 

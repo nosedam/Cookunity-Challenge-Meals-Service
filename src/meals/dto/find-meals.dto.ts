@@ -1,8 +1,11 @@
+import { Chef } from "src/chefs/entities/chef.entity"
+
 export class FindMealsDto {
 
-    constructor(chefId?: number) {
-        this.chefId = chefId
+    constructor(chef?: Chef) {
+        this.chef = chef
     }
 
-    chefId: number
+    chef: Chef
+
 }
