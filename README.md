@@ -80,3 +80,6 @@ Nest is [MIT licensed](LICENSE).
 ## To improve
 
 - Configuration file from env file or environment
+- One lambda per endpoint
+- Better event handling
+- Better error logging

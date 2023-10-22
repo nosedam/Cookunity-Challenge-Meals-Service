@@ -2,17 +2,15 @@ service: cookunity-meals
 
 frameworkVersion: '3'
 
-useDotenv: true
-
 provider:
   name: aws
   runtime: nodejs18.x
-  architecture: x86_64
+  architecture: arm64
   stage: production
   region: us-west-2
   memorySize: 512
   logRetentionInDays: 1
-  timeout: 30
+  timeout: 15
   
 
 functions:

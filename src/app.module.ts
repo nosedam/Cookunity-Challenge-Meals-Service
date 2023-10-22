@@ -35,7 +35,6 @@ import configuration from './config/configuration';
     CustomersModule,
     ConfigModule.forRoot({
       load: [configuration],
-      envFilePath: [".env"]
     })
   ],
   controllers: [
