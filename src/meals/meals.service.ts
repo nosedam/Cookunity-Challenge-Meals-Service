@@ -19,16 +19,15 @@ export class MealsService {
   }
 
   findAll(findMealsDto: FindMealsDto, paginationDto: PaginationDto) {
-    let meals = this.mealsRepository.createQueryBuilder("meals")
-
-
-    if (findMealsDto.chefId) {
-      meals = meals.where("meals.chefId = :chefId", {chefId: findMealsDto.chefId})
-    }
-
-    meals = meals.take(paginationDto.page).limit(paginationDto.limit)
-
-    return meals.getMany()
+    let meals = this.mealsRepository.find({
+      take: paginationDto.limit,
+      skip: paginationDto.page,
+      where: {
+        ...(findMealsDto.chefId && {chef: {id: findMealsDto.chefId}})
+      },
+      relations: ["chef"]
+    })
+    return meals
   }
 
 }
