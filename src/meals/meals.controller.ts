@@ -14,8 +14,7 @@ export class MealsController {
   @Roles(Role.Chef)
   @Post()
   create(@Body() createMealDto: CreateMealDto, @Req() req) {
-    const chef = req.user.id as Chef
-    createMealDto.chef = chef
+    createMealDto.chefId = req.user.id
     return this.mealsService.create(createMealDto);
   }
 

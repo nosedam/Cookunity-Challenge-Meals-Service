@@ -34,7 +34,8 @@ import configuration from './config/configuration';
     ChefsModule,
     CustomersModule,
     ConfigModule.forRoot({
-      load: [configuration]
+      load: [configuration],
+      envFilePath: [".env"]
     })
   ],
   controllers: [

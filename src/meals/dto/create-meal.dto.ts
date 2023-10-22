@@ -6,6 +6,6 @@ export class CreateMealDto {
     @IsString()
     name: string
 
-    chef: Chef
+    chefId: number
 
 }

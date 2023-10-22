@@ -22,8 +22,8 @@ export class MealsService {
     let meals = this.mealsRepository.createQueryBuilder("meals")
 
 
-    if (findMealsDto.chef) {
-      meals = meals.where("meals.chefId = :chefId", {chefId: findMealsDto.chef.id})
+    if (findMealsDto.chefId) {
+      meals = meals.where("meals.chefId = :chefId", {chefId: findMealsDto.chefId})
     }
 
     meals = meals.take(paginationDto.page).limit(paginationDto.limit)
