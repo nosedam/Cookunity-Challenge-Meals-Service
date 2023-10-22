@@ -5,8 +5,8 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Meal {
 
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn("uuid")
+    id: string
 
     @Column({nullable: false})
     name: string
@@ -16,7 +16,7 @@ export class Meal {
 
     @Expose()
     get chefName(): string {
-        return `${this.chef?.firstName} ${this.chef?.lastName}`;
+        return `${this.chef.firstName} ${this.chef.lastName}`;
     }
 
     @Exclude()

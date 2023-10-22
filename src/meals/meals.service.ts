@@ -5,16 +5,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Meal } from './entities/meal.entity';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { RequestService } from 'src/request/request.service';
-import { Chef } from 'src/chefs/entities/chef.entity';
+import { LoggingService } from 'src/logging/logging.service';
 
 @Injectable()
 export class MealsService {
   constructor(
     @InjectRepository(Meal) private mealsRepository: Repository<Meal>,
-    private requestService: RequestService
+    private logginService: LoggingService
   ){}
   create(createMealDto: CreateMealDto) {
+    this.logginService.log(createMealDto)
     return this.mealsRepository.save(createMealDto);
   }
 

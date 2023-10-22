@@ -33,7 +33,7 @@ export class ChefsService {
     return this.mealsService.findAll(findMealsDto, pagination)
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const chef = await this.chefRepository.findOneBy({id: id})
     if (!chef) {
       throw new HttpException("Chef doesn't exist", HttpStatus.NOT_FOUND)

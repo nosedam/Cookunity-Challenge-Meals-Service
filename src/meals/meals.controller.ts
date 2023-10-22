@@ -5,16 +5,25 @@ import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/roles/role.enum';
 import { FindMealsDto } from './dto/find-meals.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { Chef } from 'src/chefs/entities/chef.entity';
+import { Meal } from './entities/meal.entity';
+import { ApiOkResponse } from '@nestjs/swagger';
+import { GetChef } from 'src/chefs/get-chef.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('meals')
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
+  @ApiOkResponse({
+    description: 'The created meal',
+    type: Meal,
+    isArray: false
+})
   @Roles(Role.Chef)
   @Post()
-  create(@Body() createMealDto: CreateMealDto, @Req() req) {
-    createMealDto.chefId = req.user.id
+  create(@Body() createMealDto: CreateMealDto, @GetChef() chef): Promise<Meal> {
+    createMealDto.chef = chef
     return this.mealsService.create(createMealDto);
   }
 

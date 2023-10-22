@@ -22,7 +22,7 @@ export class CustomersService {
     return this.customerRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const customer = await this.customerRepository.findOneBy({id: id})
     if (!customer) {
       throw new HttpException("Customer doesn't exist", HttpStatus.NOT_FOUND)

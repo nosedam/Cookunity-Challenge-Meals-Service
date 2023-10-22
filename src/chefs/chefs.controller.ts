@@ -7,6 +7,7 @@ import { Role } from 'src/roles/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 import { Chef } from './entities/chef.entity';
 import { FindMealsDto } from 'src/meals/dto/find-meals.dto';
+import { GetChef } from './get-chef.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('chefs')
@@ -17,8 +18,8 @@ export class ChefsController {
 
   @Roles(Role.Chef)
   @Get('meals')
-  findMeals(@Query() pagination: PaginationDto, @Req() req) {
-    const findMealsDto = new FindMealsDto(req.user.id)
+  findMeals(@Query() pagination: PaginationDto, @GetChef() chef) {
+    const findMealsDto = new FindMealsDto(chef.id)
     return this.chefsService.findMeals(findMealsDto, pagination);
   }
 
@@ -35,7 +36,7 @@ export class ChefsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.chefsService.findOne(+id);
+    return this.chefsService.findOne(id);
   }
 
 }
