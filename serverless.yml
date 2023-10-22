@@ -1,0 +1,35 @@
+service: cookunity-meals
+
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  architecture: x86_64
+  stage: production
+  region: us-west-2
+  memorySize: 512
+  logRetentionInDays: 1
+  timeout: 30
+  
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      - httpApi:
+          method: any
+          path: /{proxy+}
+    environment:
+      JWT_KEY: "${env:JWT_KEY}"
+      DB_HOST: "${env:DB_HOST}"
+      DB_PORT: "${env:DB_PORT}"
+      DB_USERNAME: "${env:DB_USERNAME}"
+      DB_PASSWORD: "${env:DB_PASSWORD}"
+      DB_DATABASE: "${env:DB_DATABASE}"
+
+plugins:
+  - serverless-jetpack
+  - serverless-offline

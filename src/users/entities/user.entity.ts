@@ -1,7 +1,6 @@
-import { Exclude, Expose } from "class-transformer";
-import { Role } from "src/roles/role.enum";
+import { Exclude } from "class-transformer";
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
-import * as bcrypt from 'bcrypt';
+var bcrypt = require('bcryptjs');
 
 @Entity()
 @TableInheritance({ column: { name: "role" } })
@@ -10,8 +9,8 @@ export class User {
     @BeforeInsert()
     async hashPassword() {
         if (this.password) {
-            const salt = await bcrypt.genSalt();
-            this.password = await bcrypt.hash(this.password, salt);
+            const salt = bcrypt.genSaltSync();
+            this.password = bcrypt.hashSync(this.password, salt);
         }
     }
   

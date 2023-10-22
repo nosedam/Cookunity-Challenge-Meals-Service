@@ -19,6 +19,7 @@ import { Meal } from './meals/entities/meal.entity';
 import { Customer } from './customers/entities/customer.entity';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './typeorm.config';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { TypeOrmConfigService } from './typeorm.config';
     ChefsModule,
     CustomersModule,
     ConfigModule.forRoot({
-      envFilePath: [".env.local", ".env.dev", ".env"]
+      load: [configuration]
     })
   ],
   controllers: [
