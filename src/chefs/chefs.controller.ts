@@ -32,7 +32,6 @@ export class ChefsController {
   @Post()
   @ApiOperation({ summary: 'Create a chef account that can login' })
   @ApiCreatedResponse({type: Chef})
-  @ApiBearerAuth()
   @Public()
   async create(@Body() createChefDto: CreateChefDto) {
     if (createChefDto.password != createChefDto.passwordConfirmation) {
