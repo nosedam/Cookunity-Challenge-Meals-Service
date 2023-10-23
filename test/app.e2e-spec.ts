@@ -15,6 +15,7 @@ import { Meal } from 'src/meals/entities/meal.entity';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let mealsRepository: Repository<Meal>
+  
   afterAll(async () => {
     await app.close();
   });

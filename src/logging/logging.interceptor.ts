@@ -50,8 +50,6 @@ export class LoggingInterceptor implements NestInterceptor {
                 "status": statusCode
             }
             this.logger.log(logResponseMessage)
-
-            console.log()
         }),
       );
   }

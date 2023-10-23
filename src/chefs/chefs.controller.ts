@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseInterceptors, ClassSerializerInterceptor, Query, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseInterceptors, ClassSerializerInterceptor, Query, Req, HttpException, HttpStatus } from '@nestjs/common';
 import { ChefsService } from './chefs.service';
 import { CreateChefDto } from './dto/create-chef.dto';
 import { Public } from 'src/auth/public.decorator';
@@ -8,7 +8,7 @@ import { Roles } from 'src/roles/roles.decorator';
 import { Chef } from './entities/chef.entity';
 import { FindMealsDto } from 'src/meals/dto/find-meals.dto';
 import { GetChef } from './get-chef.decorator';
-import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Meal } from 'src/meals/entities/meal.entity';
 
 @ApiTags('chefs')
@@ -22,20 +22,27 @@ export class ChefsController {
   @Get('meals')
   @ApiOperation({ summary: 'View meals of the requesting chef' })
   @ApiOkResponse({type: Meal, isArray: true})
+  @ApiBearerAuth()
   findMeals(@Query() pagination: PaginationDto, @GetChef() chef) {
-    const findMealsDto = new FindMealsDto(chef.id)
+    const findMealsDto = new FindMealsDto()
+    findMealsDto.chefId = chef.id
     return this.chefsService.findMeals(findMealsDto, pagination);
   }
 
   @Post()
   @ApiOperation({ summary: 'Create a chef' })
   @ApiCreatedResponse({type: Chef})
+  @ApiBearerAuth()
   @Public()
   async create(@Body() createChefDto: CreateChefDto) {
+    if (createChefDto.password != createChefDto.passwordConfirmation) {
+      throw new HttpException("password and password confirmation must be the same", HttpStatus.BAD_REQUEST)
+    }
     return this.chefsService.create(createChefDto);
   }
 
   @Get()
+  @ApiBearerAuth() 
   @ApiOperation({ summary: 'View all chefs' })
   @ApiOkResponse({type: Chef, isArray: true})
   findAll() {
@@ -43,6 +50,7 @@ export class ChefsController {
   }
 
   @Get(':id')
+  @ApiBearerAuth() 
   @ApiOperation({ summary: 'View a chef' })
   @ApiOkResponse({type: Chef})
   findOne(@Param('id') id: string) {

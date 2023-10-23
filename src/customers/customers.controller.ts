@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseInterceptors, ClassSerializerInterceptor, HttpStatus, HttpException } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { Public } from 'src/auth/public.decorator';
@@ -15,6 +15,9 @@ export class CustomersController {
   @ApiCreatedResponse({type: Customer})
   @Public()
   create(@Body() createCustomerDto: CreateCustomerDto) {
+    if (createCustomerDto.password != createCustomerDto.passwordConfirmation) {
+      throw new HttpException("password and password confirmation must be the same", HttpStatus.BAD_REQUEST)
+    }
     return this.customersService.create(createCustomerDto);
   }
 
@@ -22,6 +25,7 @@ export class CustomersController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'View all customers' })
   @ApiOkResponse({type: Customer, isArray: true})
+  @ApiBearerAuth()
   findAll() {
     return this.customersService.findAll();
   }
@@ -30,6 +34,7 @@ export class CustomersController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'View a customer' })
   @ApiOkResponse({type: Customer, isArray: true})
+  @ApiBearerAuth()
   findOne(@Param('id') id: string) {
     return this.customersService.findOne(id);
   }

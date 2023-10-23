@@ -1,3 +1,3 @@
 export interface SqsEventHandler {
-    process(event: any): Promise<void>
+    process(data: any): Promise<void>
 }

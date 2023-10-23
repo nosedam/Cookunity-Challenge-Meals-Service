@@ -5,13 +5,13 @@ import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/roles/role.enum';
 import { FindMealsDto } from './dto/find-meals.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { Chef } from 'src/chefs/entities/chef.entity';
 import { Meal } from './entities/meal.entity';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetChef } from 'src/chefs/get-chef.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @ApiTags('meals')
+@ApiBearerAuth()
 @Controller('meals')
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}

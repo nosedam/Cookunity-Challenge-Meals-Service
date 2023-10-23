@@ -14,6 +14,7 @@ async function bootstrap() {
   }));
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Meals Service')
     .setDescription('The meals service with its chefs and customers')
     .setVersion('1.0')
