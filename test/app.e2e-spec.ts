@@ -5,7 +5,7 @@ import { AppModule } from './../src/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from 'src/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
-import { MockLoggingService, mockCreateCustomerDto, mockCreateMealDto, mockCreateRandomChefDto, mockLoginChefDto, mockLoginCustomerDto } from './mocks';
+import { MockLoggingService, mockCreateChefDto, mockCreateCustomerDto, mockCreateMealDto, mockCreateRandomChefDto, mockLoginChefDto, mockLoginCustomerDto } from './mocks';
 import { LoggingService } from 'src/logging/logging.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
@@ -38,7 +38,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('create a chef, login and create a meal', async () => {
-    const createChefResponse = await request(app.getHttpServer()).post("/chefs").send(mockLoginChefDto)
+    const createChefResponse = await request(app.getHttpServer()).post("/chefs").send(mockCreateChefDto)
     expect(createChefResponse.status).toEqual(201)
     expect(createChefResponse.body).toBeDefined()
     expect(createChefResponse.body.fullName).toBeDefined()
