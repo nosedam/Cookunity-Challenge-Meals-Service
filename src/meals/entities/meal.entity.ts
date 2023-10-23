@@ -11,7 +11,7 @@ export class Meal {
     @Column({nullable: false})
     name: string
 
-    @Column({nullable: true})
+    @Column("decimal", {precision: 3, scale: 2, nullable: true})
     rating: number
 
     @Expose()

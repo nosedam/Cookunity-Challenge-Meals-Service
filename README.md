@@ -83,3 +83,5 @@ Nest is [MIT licensed](LICENSE).
 - One lambda per endpoint
 - Better event handling
 - Better error logging
+
+- LIMPIUAR PARAMETRO DE BUSQUEDa de 1 chef

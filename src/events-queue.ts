@@ -1,16 +1,13 @@
 import { Handler } from 'aws-lambda';
-import { ModuleRef, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication } from '@nestjs/common';
-import { SqsLambdaEventHandlerService } from './queue/sqs-lambda-handler.service';
-import { LoggingService } from './logging/logging.service';
-import { RequestService } from './request/request.service';
-import { BaseEvent } from './queue/dto/base-event.dto';
-import { SqsMessageDto } from './queue/dto/sqs.dto';
-import { MealsService } from './meals/meals.service';
-import { UpdateRatingDto } from './meals/dto/update-rating.dto';
-import { SqsEventHandler } from './queue/sqs-event-handler.interface';
+import { SqsLambdaEventHandlerService } from './events/sqs-lambda-handler.service';
+import { BaseEvent } from './events/dto/base-event.dto';
+import { SqsMessageDto } from './events/dto/sqs.dto';
+import { SqsEventHandler } from './events/sqs-event-handler.interface';
 import { ReviewCreatedEventHandler } from './meals/events/review-created.handler';
+import { LoggingService } from './logging/logging.service';
 
 let cachedServer: INestApplication;
 
@@ -37,6 +34,9 @@ export const handler: Handler = async (event: any) => {
 
     const job = JSON.parse(sqsBody) as SqsMessageDto;
     const message = JSON.parse(job.Message) as BaseEvent
+
+    let loggingService = await cachedServer.resolve(LoggingService)
+    loggingService.log(message)
 
     await handler.handleSqsEvent(message);
 };

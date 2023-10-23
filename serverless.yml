@@ -29,7 +29,7 @@ functions:
       DB_DATABASE: "${env:DB_DATABASE}"
 
   queue:
-    handler: dist/queue.handler
+    handler: dist/events-queue.handler
     events:
       - sqs:
           arn:

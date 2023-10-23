@@ -1,4 +1,4 @@
-import { SqsEventHandler } from "src/queue/sqs-event-handler.interface";
+import { SqsEventHandler } from "src/events/sqs-event-handler.interface";
 import { ReviewCreatedEvent } from "./review-created.event";
 import { MealsService } from "../meals.service";
 import { UpdateRatingDto } from "../dto/update-rating.dto";

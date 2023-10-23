@@ -16,7 +16,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './typeorm.config';
 import configuration from './config/configuration';
 import { ReviewCreatedEventHandler } from './meals/events/review-created.handler';
-import { SqsLambdaEventHandlerService } from './queue/sqs-lambda-handler.service';
+import { SqsLambdaEventHandlerService } from './events/sqs-lambda-handler.service';
 
 @Module({
   imports: [
@@ -37,7 +37,7 @@ import { SqsLambdaEventHandlerService } from './queue/sqs-lambda-handler.service
   providers: [
     AppService,
     LoggingService,
-    RequestService,
+RequestService,
     {
       provide: APP_INTERCEPTOR,
       scope: Scope.REQUEST,

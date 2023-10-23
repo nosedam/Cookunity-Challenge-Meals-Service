@@ -22,7 +22,7 @@ export class MealsService {
   findAll(findMealsDto: FindMealsDto, paginationDto: PaginationDto) {
     let meals = this.mealsRepository.find({
       take: paginationDto.limit,
-      skip: paginationDto.page,
+      skip: paginationDto.skip,
       where: {
         ...(findMealsDto.chefId && {chef: {id: findMealsDto.chefId}})
       },
@@ -34,8 +34,6 @@ export class MealsService {
   async updateRating(updateRatingDto: UpdateRatingDto) {
 
     const meal = await this.mealsRepository.findOneBy({id: updateRatingDto.id})
-    this.logginService.info("Procesando meal")
-    this.logginService.log(meal)
 
     if (meal) {
       await this.mealsRepository.save({

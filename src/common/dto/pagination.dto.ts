@@ -1,13 +1,19 @@
-import { IsNumber, IsOptional, IsPositive } from "class-validator";
+import { Exclude, Transform } from "class-transformer";
+import { IsInt, IsNumberString, IsOptional, Min } from "class-validator";
 
 export class PaginationDto {
-
-    @IsPositive()
-    @IsOptional()
-    public page: number = 1;
     
-    @IsPositive()
     @IsOptional()
-    public limit: number= 10;
+    @Min(1)
+    page: number = 1;
+    
+    @IsOptional()
+    @Min(1)
+    limit: number= 10;
+
+    @Exclude()
+    get skip() {
+        return (this.page - 1) * this.limit
+    }
 
 }

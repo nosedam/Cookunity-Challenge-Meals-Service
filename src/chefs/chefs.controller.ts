@@ -38,7 +38,6 @@ export class ChefsController {
   @Get()
   @ApiOperation({ summary: 'View all chefs' })
   @ApiOkResponse({type: Chef, isArray: true})
-
   findAll() {
     return this.chefsService.findAll();
   }

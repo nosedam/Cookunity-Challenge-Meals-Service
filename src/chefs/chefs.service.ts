@@ -6,18 +6,15 @@ import { Chef } from './entities/chef.entity';
 import { plainToInstance } from 'class-transformer';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { FindMealsDto } from 'src/meals/dto/find-meals.dto';
-import { RequestService } from 'src/request/request.service';
 import { MealsService } from 'src/meals/meals.service';
 import { LoggingService } from 'src/logging/logging.service';
 
-@Injectable({scope: Scope.REQUEST})
+@Injectable()
 export class ChefsService {
 
   constructor(
     @InjectRepository(Chef) private chefRepository: Repository<Chef>,
-    private requestService: RequestService,
     private mealsService : MealsService,
-    private loggingService: LoggingService
   ) {}
 
   create(createChefDto: CreateChefDto) {
