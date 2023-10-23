@@ -8,18 +8,14 @@ import { ModuleRef } from '@nestjs/core';
 @Injectable()
 export class ReviewCreatedEventHandler implements SqsEventHandler{
 
-    private mealsService: MealsService
-    
-    constructor(private moduleRef: ModuleRef){
-        this.mealsService = moduleRef.get(MealsService, {strict: false})
-    }
+    constructor(private mealsService: MealsService){}
 
-    process(message: ReviewCreatedEvent) {
+    async process(message: ReviewCreatedEvent) {
         let updateRatingDto = new UpdateRatingDto()
 
         updateRatingDto.id = message.mealId
         updateRatingDto.rating = message.averageMealRating
         
-        this.mealsService.updateRating(updateRatingDto)
+        await this.mealsService.updateRating(updateRatingDto)
     }
 }

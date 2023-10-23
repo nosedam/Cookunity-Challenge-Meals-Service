@@ -54,7 +54,8 @@ import { SqsLambdaEventHandlerService } from './queue/sqs-lambda-handler.service
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
-    }
+    },
+    ReviewCreatedEventHandler
   ],
 })
 export class AppModule { }
