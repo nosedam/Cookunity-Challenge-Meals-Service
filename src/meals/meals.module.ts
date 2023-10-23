@@ -12,4 +12,4 @@ import { LoggingService } from 'src/logging/logging.service';
   providers: [MealsService, RequestService, LoggingService],
   exports: [MealsService]
 })
-export class MealsModule {}
+export class MealsModule { }

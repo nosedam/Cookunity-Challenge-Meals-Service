@@ -30,7 +30,7 @@ export class ChefsController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a chef' })
+  @ApiOperation({ summary: 'Create a chef account that can login' })
   @ApiCreatedResponse({type: Chef})
   @ApiBearerAuth()
   @Public()

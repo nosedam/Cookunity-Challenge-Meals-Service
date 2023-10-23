@@ -84,3 +84,4 @@ Nest is [MIT licensed](LICENSE).
 - Better event handling
 - Better error logging
 - Use AWS Secrets Manager for JWT Key
+- NPM Repository for shared dependencies

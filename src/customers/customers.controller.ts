@@ -11,7 +11,7 @@ export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a customer' })
+  @ApiOperation({ summary: 'Create a customer account that can login' })
   @ApiCreatedResponse({type: Customer})
   @Public()
   create(@Body() createCustomerDto: CreateCustomerDto) {

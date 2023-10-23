@@ -9,7 +9,7 @@ export class RegisterDto extends PartialType(CreateUserDto) {
 
     @IsString()
     @ApiProperty()
-    @Exclude()
+    @Exclude({toPlainOnly: true})
     passwordConfirmation: string
 
 }

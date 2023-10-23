@@ -16,7 +16,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('Meals Service')
-    .setDescription('The meals service with its chefs and customers')
+    .setDescription('This Meals Service manages all meals and allows creation of chefs that creates them, and customers that can view them')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

@@ -1,3 +1,4 @@
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose } from "class-transformer";
 import { Chef } from "src/chefs/entities/chef.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -15,11 +16,13 @@ export class Meal {
     rating: number
 
     @Expose()
+    @ApiProperty({type: "string"})
     get chefName(): string {
         return `${this.chef.firstName} ${this.chef.lastName}`;
     }
 
     @Exclude()
+    @ApiHideProperty()
     @ManyToOne(type => Chef, (chef) => chef.meals, {nullable: false})
     chef: Chef
     
