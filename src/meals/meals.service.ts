@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Meal } from './entities/meal.entity';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { LoggingService } from 'src/logging/logging.service';
+import { UpdateRatingDto } from './dto/update-rating.dto';
 
 @Injectable()
 export class MealsService {
@@ -28,6 +29,20 @@ export class MealsService {
       relations: ["chef"]
     })
     return meals
+  }
+
+  async updateRating(updateRatingDto: UpdateRatingDto) {
+
+    const meal = await this.mealsRepository.findOneBy({id: updateRatingDto.id})
+    this.logginService.info("Procesando meal")
+    this.logginService.log(meal)
+
+    if (meal) {
+      await this.mealsRepository.save({
+        id: updateRatingDto.id,
+        rating: updateRatingDto.rating
+      })
+    }
   }
 
 }

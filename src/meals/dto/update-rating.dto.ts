@@ -2,12 +2,12 @@ import { ApiProperty } from "@nestjs/swagger"
 import { IsString } from "class-validator"
 import { Chef } from "src/chefs/entities/chef.entity"
 
-export class CreateMealDto {
+export class UpdateRatingDto {
     
     @ApiProperty()
-    @IsString()
-    name: string
+    id: string
 
-    chef: Chef = new Chef()
+    @ApiProperty()
+    rating: number
 
 }
