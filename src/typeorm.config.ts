@@ -15,7 +15,7 @@ let dataSource = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: ['dist/**/*.entity.js'],
-    migrations: ['dist/migrations/*.{ts,js}'],
+    migrations: ['dist/**/migrations/*.{ts,js}'],
 }
 
 export default new DataSource(
