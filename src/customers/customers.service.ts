@@ -5,16 +5,24 @@ import { Customer } from './entities/customer.entity';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { LoggingService } from 'src/logging/logging.service';
+import { UsersService } from 'src/users/users.service';
+import { Chef } from 'src/chefs/entities/chef.entity';
 
 @Injectable()
 export class CustomersService {
 
   constructor(
     @InjectRepository(Customer) private customerRepository: Repository<Customer>,
+    private usersService: UsersService
   ){}
 
-  create(createCustomerDto: CreateCustomerDto) {
-    const customer = plainToInstance(Customer, createCustomerDto, {ignoreDecorators: true})
+  async create(createCustomerDto: CreateCustomerDto) {
+    const user = await this.usersService.findByEmail(createCustomerDto.email)
+    if (user) {
+      throw new HttpException("a user with the same email already exists", HttpStatus.CONFLICT)
+    }
+    const customer = this.customerRepository.create(createCustomerDto)
+
     return this.customerRepository.save(customer);
   }
 

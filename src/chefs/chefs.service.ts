@@ -8,6 +8,7 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { FindMealsDto } from 'src/meals/dto/find-meals.dto';
 import { MealsService } from 'src/meals/meals.service';
 import { LoggingService } from 'src/logging/logging.service';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class ChefsService {
@@ -15,10 +16,18 @@ export class ChefsService {
   constructor(
     @InjectRepository(Chef) private chefRepository: Repository<Chef>,
     private mealsService : MealsService,
+    private usersService : UsersService,
   ) {}
 
-  create(createChefDto: CreateChefDto) {
-    const chef = plainToInstance(Chef, createChefDto, {ignoreDecorators: true})
+  async create(createChefDto: CreateChefDto) {
+    const user = await this.usersService.findByEmail(createChefDto.email)
+    
+    if (user) {
+      throw new HttpException("a user with the same email already exists", HttpStatus.CONFLICT)
+    }
+
+    let chef = this.chefRepository.create(createChefDto)
+
     return this.chefRepository.save(chef)
   }
 

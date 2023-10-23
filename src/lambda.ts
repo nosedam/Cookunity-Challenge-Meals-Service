@@ -20,7 +20,7 @@ export const handler = async (event, context) => {
     const config = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('Meals Service')
-    .setDescription('The meals service with its chefs and customers')
+    .setDescription('Manages the different meals, the chefs that creates, and the customers that can view them')
     .setVersion('1.0')
     .build();
     const document = SwaggerModule.createDocument(nestApp, config);

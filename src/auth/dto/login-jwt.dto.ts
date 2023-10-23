@@ -5,4 +5,5 @@ export class LoginJWTDto extends User{
     
     @ApiProperty()
     accessToken: string
+    
 }
