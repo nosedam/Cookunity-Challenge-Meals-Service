@@ -12,9 +12,14 @@ The following diagram describes the architecture for this service
 
 ![](https://github.com/nosedam/Cookunity-Challenge/blob/main/img/meals-service.drawio.png)
 
-The services are deployed serverlessly with AWS Lambda and the database is an RDS instance.
+The services are deployed serverlessly with AWS Lambda.
 The meals service expose an HTTP Rest Api accesible by the public.
 A Lambda with an SQS handler receive events from this service SNS subscriptions.
+
+### Database
+
+Database is hosted in an RDS MySQL instance.
+![](https://github.com/nosedam/Cookunity-Challenge/blob/main/img/db-meals.drawio.png)
 
 ## Demo
 
