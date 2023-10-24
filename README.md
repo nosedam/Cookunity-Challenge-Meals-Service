@@ -102,5 +102,6 @@ $ npm run typeorm:run-migrations
 Generate migrations
 
 ```bash
+$ nest build
 $ npm run typeorm:generate-migration
 ```
