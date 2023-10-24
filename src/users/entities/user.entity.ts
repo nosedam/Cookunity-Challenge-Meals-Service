@@ -1,6 +1,6 @@
 import { ApiHideProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
 var bcrypt = require('bcryptjs');
 
 @Entity()
@@ -36,5 +36,8 @@ export class User {
     @Exclude()
     @Column()
     role: string
+
+    @CreateDateColumn()
+    createdAt: Date;
 
 }

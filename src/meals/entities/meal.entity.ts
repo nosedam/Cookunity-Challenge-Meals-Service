@@ -1,7 +1,7 @@
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose } from "class-transformer";
 import { Chef } from "src/chefs/entities/chef.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Meal {
@@ -26,4 +26,7 @@ export class Meal {
     @ManyToOne(type => Chef, (chef) => chef.meals, {nullable: false})
     chef: Chef
     
+    @CreateDateColumn()
+    createdAt: Date;
+
 }
