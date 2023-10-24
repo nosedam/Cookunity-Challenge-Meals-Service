@@ -95,6 +95,7 @@ $ npm run test:e2e
 Run migrations
 
 ```bash
+$ nest build
 $ npm run typeorm:run-migrations
 ```
 
