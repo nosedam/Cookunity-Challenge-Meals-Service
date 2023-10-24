@@ -19,6 +19,7 @@ A Lambda with an SQS handler receive events from this service SNS subscriptions.
 ### Database
 
 Database is hosted in an RDS MySQL instance.
+
 ![](https://github.com/nosedam/Cookunity-Challenge/blob/main/img/db-meals.drawio.png)
 
 ## Demo
