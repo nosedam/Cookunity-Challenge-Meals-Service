@@ -13,7 +13,8 @@ The following diagram describes the architecture for this service
 ![](https://github.com/nosedam/Cookunity-Challenge/blob/main/img/meals-service.drawio.png)
 
 The services are deployed serverlessly with AWS Lambda and the database is an RDS instance.
-The reviews service generates events that are consumed by the meals service sqs subscribed queue.
+The meals service expose an HTTP Rest Api accesible by the public.
+A Lambda with an SQS handler receive events from this service SNS subscriptions.
 
 ## Demo
 
